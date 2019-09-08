@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  # PostgreSQL
+  postgres:
+    container_name: postgres
+    image: postgres:10.3
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mytestdb
+    ports:
+      - "5432:5432"
+
+  # API
+  test-api:
+    container_name: test-api
+    build: ./
+    image: test-api
+    volumes:
+      - ./:/usr/src/test-project
+    command: bash -c "npm ci && npm run start"
+    working_dir: /usr/src/test-project
+    ports:
+      - "3000:3000"
+    environment:
+      POSTGRES_URL: postgres://postgres:postgres@postgres:5432/mytestdb
+      PORT: 3000
+    depends_on:
+      - "postgres"
+  
