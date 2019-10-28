@@ -7,7 +7,7 @@ In the root run `npm install`;
 
 Run `docker-compose up` to start the services and `docker-compose down` to stop all services.
 
-If you want to run the project without docker, you'll need an `.env` file with environment files values defined as in `.env.example`. After creating the database run `npm install` to fresh install all npm dependencies or `npm ci` to install all dependency versions from `package-lock.json`. To start the project run `npm start` in the root.
+If you want to run the project without docker, you'll need an `.env` file with environment values defined as in `.env.example`. After creating the database run `npm install` to install all npm dependencies or `npm ci` to install all dependency versions from `package-lock.json`. To start the project run `npm start` in the root.
 
 ## Testing the endpoints
 

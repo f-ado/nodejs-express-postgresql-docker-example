@@ -15,13 +15,11 @@ services:
 
   # API
   test-api:
-    container_name: test-api
+    container_name: api
     build: ./
-    image: test-api
+    image: express-api
     volumes:
       - ./:/usr/src/test-project
-    command: bash -c "npm ci && npm run start"
-    working_dir: /usr/src/test-project
     ports:
       - "3000:3000"
     environment:

@@ -27,6 +27,9 @@ app.use(async (req, res, next) => {
 // Routes
 app.use('/users', routes.user);
 app.use('/todos', routes.todo);
+app.get('/*', function(req, res) {
+  res.send('Ooops. Nothing there.');
+});
 
 const onSyncEraseDb = true;
 sequelize.sync({ force: onSyncEraseDb }).then(async () => {
