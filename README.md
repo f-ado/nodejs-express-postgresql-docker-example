@@ -2,6 +2,10 @@
 
 Example of dockerized express api alongside with postgresql db.
 
+## Prerequisites
+- Docker Engine release 18.06.0+
+- docker-compose version 1.22.0+
+
 ## Setup
 Run `docker-compose up` to start the services and `docker-compose down` to stop all services.
 
