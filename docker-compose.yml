@@ -11,7 +11,24 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: mytestdb
     ports:
-      - "5432:5432"
+      - 5432:5432
+    networks:
+      - node-postgres-network
+
+  # PgAdmin4
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:4.15
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin@pgadmin.com
+      PGADMIN_DEFAULT_PASSWORD: pgadmin
+    ports:
+      - 5050:80
+    depends_on:
+      - postgres
+    networks:
+      - node-postgres-network
 
   # API
   test-api:
@@ -19,12 +36,21 @@ services:
     build: ./
     image: express-api
     volumes:
-      - ./:/usr/src/test-project
+      - ./:/usr/src/test-project/
+      - node-modules:/usr/src/test-project/node_modules/
     ports:
-      - "3000:3000"
+      - 3000:3000
     environment:
       POSTGRES_URL: postgres://postgres:postgres@postgres:5432/mytestdb
       PORT: 3000
     depends_on:
-      - "postgres"
-  
+      - postgres
+    networks:
+      - node-postgres-network
+
+networks: 
+  node-postgres-network:
+    driver: bridge
+
+volumes:
+    node-modules:

@@ -8,13 +8,11 @@ WORKDIR /usr/src/test-project
 # ADD package.json /usr/src/test-project
 # ADD package-lock.json /usr/src/test-project
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json ./
+COPY package*.json /usr/src/test-project/
 
 RUN npm ci
 
-# Bundle app source
-# COPY . /usr/src/test-project
-COPY . .
+COPY . /usr/src/test-project/
 
 EXPOSE 3000
 
