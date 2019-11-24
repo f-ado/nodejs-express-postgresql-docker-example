@@ -155,6 +155,28 @@
 				"description": "binds TODO to the 'current' user"
 			},
 			"response": []
+		},
+		{
+			"name": "Seed users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/db/users/seed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"db",
+						"users",
+						"seed"
+					]
+				},
+				"description": "Seed users with assigned todos if there is no any."
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}

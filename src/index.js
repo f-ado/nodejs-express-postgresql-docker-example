@@ -5,7 +5,6 @@ import express from "express";
 import config from './config';
 import routes from './routes';
 import models, { sequelize } from './models';
-import { seedUsers } from './db/seeder';
 
 const app = express();
 
@@ -27,6 +26,7 @@ app.use(async (req, res, next) => {
 // Routes
 app.use('/users', routes.user);
 app.use('/todos', routes.todo);
+app.use('/db', routes.db);
 app.get('/*', function(req, res) {
   res.send('Ooops. Nothing there.');
 });
@@ -39,8 +39,6 @@ const initializeApp = () => {
   sequelize.sync(/* { force: onSyncEraseDb } */)
   .then(async () => {
     console.log('\x1b[32m', 'Connected to DB.');
-    seedUsers(models);
-    console.log('\x1b[32m', 'Data seeding done.');
     app.listen(config.port, () => {
       console.log('\x1b[32m', `App listening on port ${config.port}!`);
     });
