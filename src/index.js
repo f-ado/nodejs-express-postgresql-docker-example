@@ -31,18 +31,16 @@ app.get('/*', function(req, res) {
   res.send('Ooops. Nothing there.');
 });
 
-const onSyncEraseDb = true;
+// const onSyncEraseDb = true;
 
 // As per https://docs.docker.com/compose/startup-order/ the app is trying to re-establish
 // connection to the database after failure instead of the wrapper script work around.
 const initializeApp = () => {
-  sequelize.sync({ force: onSyncEraseDb })
+  sequelize.sync(/* { force: onSyncEraseDb } */)
   .then(async () => {
     console.log('\x1b[32m', 'Connected to DB.');
-    if (onSyncEraseDb) {
-      seedUsers(models);
-      console.log('\x1b[32m', 'Data seeding done.');
-    }
+    seedUsers(models);
+    console.log('\x1b[32m', 'Data seeding done.');
     app.listen(config.port, () => {
       console.log('\x1b[32m', `App listening on port ${config.port}!`);
     });

@@ -9,7 +9,10 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: mytestdb
+      POSTGRES_DB: ${POSTGRES_DB:-mytestdb}
+      PGDATA: /data/postgres
+    volumes:
+       - postgres:/data/postgres
     ports:
       - 5432:5432
     networks:
@@ -21,8 +24,10 @@ services:
     image: dpage/pgadmin4:4.15
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: pgadmin@pgadmin.com
-      PGADMIN_DEFAULT_PASSWORD: pgadmin
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-pgadmin}
+    volumes:
+       - pgadmin:/root/.pgadmin
     ports:
       - 5050:80
     depends_on:
@@ -41,8 +46,8 @@ services:
     ports:
       - 3000:3000
     environment:
-      POSTGRES_URL: postgres://postgres:postgres@postgres:5432/mytestdb
-      PORT: 3000
+      POSTGRES_URL: ${POSTGRES_URL:-postgres://postgres:postgres@postgres:5432/mytestdb}
+      PORT: ${PORT:-3000}
     depends_on:
       - postgres
     networks:
@@ -54,3 +59,5 @@ networks:
 
 volumes:
     node-modules:
+    postgres:
+    pgadmin:
