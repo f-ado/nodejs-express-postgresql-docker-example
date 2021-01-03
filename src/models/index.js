@@ -4,9 +4,7 @@ import config from '../config';
 
 const sequelize = new Sequelize(
   config.pg_url,
-  {
-    dialect: 'postgres',
-  },
+  { dialect: 'postgres' },
 );
 const models = {
   User: sequelize.import('./user'),

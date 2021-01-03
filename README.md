@@ -9,9 +9,7 @@ Example of dockerized express api alongside with postgresql db.
 ## Setup
 Run `docker-compose up` to start the services and `docker-compose down` to stop all services.
 
-To access pgAdmin4 UI, visit `localhost:5050`. When creating new server provide postgres (e.g. postgres) service name as host name, as both postgres and pgadmin are dockerized and in the same network.
-
-If you want to run the project without docker, you'll need an `.env` file with environment values defined as in `.env.example`. After creating the database run `npm install` to install all npm dependencies or `npm ci` to install all dependency versions from `package-lock.json`. To start the project run `npm start` in the root.
+To access pgAdmin4 UI, visit `localhost:5050`. When creating new server provide postgres service (e.g. pg-db as in docker-compose file) name as host name (postgres:postgres).
 
 ## Testing the endpoints
 

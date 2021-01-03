@@ -2,17 +2,17 @@ version: '3.7'
 
 services:
   # PostgreSQL
-  postgres:
-    container_name: postgres
-    image: postgres:10.3
+  pg-db:
+    container_name: pg-db
+    image: postgres:13.1-alpine
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: ${POSTGRES_DB:-mytestdb}
+      POSTGRES_DB: ${POSTGRES_DB}
       PGDATA: /data/postgres
     volumes:
-       - postgres:/data/postgres
+       - db-data:/data/postgres
     ports:
       - 5432:5432
     networks:
@@ -21,7 +21,7 @@ services:
   # PgAdmin4
   pgadmin:
     container_name: pgadmin
-    image: dpage/pgadmin4:4.15
+    image: dpage/pgadmin4:4.29
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.com}
@@ -31,7 +31,7 @@ services:
     ports:
       - 5050:80
     depends_on:
-      - postgres
+      - pg-db
     networks:
       - node-postgres-network
 
@@ -42,14 +42,14 @@ services:
     image: express-api
     volumes:
       - ./:/usr/src/test-project/
-      - node-modules:/usr/src/test-project/node_modules/
+      - /usr/src/test-project/node_modules/
     ports:
       - 3000:3000
     environment:
-      POSTGRES_URL: ${POSTGRES_URL:-postgres://postgres:postgres@postgres:5432/mytestdb}
+      POSTGRES_URL: ${POSTGRES_URL}
       PORT: ${PORT:-3000}
     depends_on:
-      - postgres
+      - pg-db
     networks:
       - node-postgres-network
 
@@ -58,6 +58,5 @@ networks:
     driver: bridge
 
 volumes:
-    node-modules:
-    postgres:
+    db-data:
     pgadmin:

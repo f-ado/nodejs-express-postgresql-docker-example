@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:14.4.0-alpine3.10
 
 # Create app directory
 RUN mkdir -p /usr/src/test-project
@@ -17,7 +17,7 @@ COPY . /usr/src/test-project/
 EXPOSE 3000
 
 # Build arguments
-ARG NODE_VERSION=12
+ARG NODE_VERSION=14
 
 # Environment
 ENV NODE_VERSION $NODE_VERSION
